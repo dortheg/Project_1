@@ -17,10 +17,10 @@ for n in N:
     system(systemStr)
 
 
-    x = zeros(n)
+    x = zeros(n+2)
     h = 1.0/(n+1)
 
-    for i in range(n):
+    for i in range(n+2):
         x[i] = h*i
     
     u_exact_array = u_exact(x)
@@ -33,11 +33,18 @@ for n in N:
         u.append(float(words[0]))
     infile.close()
     u = array(u)
-
-    eps = log (abs((u[1:n-1] - u_exact_array[1:n-1])/(u_exact_array[1:n-1])))
+    
+    #kan bare sammenlikne med verdiene u[1:n], siden endepunktene er 0
+    #maatte ta vekk u[1:n+1], why?
+    eps =  log (abs((u[1:n] - u_exact_array[1:n])/(u_exact_array[1:n])))
     eps_max.append(max(eps))
 
-print eps_max
+outfile = open("eps_file.txt", "w")
+for epsilon in eps_max:
+    outfile.write("%.4e \n" % epsilon)
+
+outfile.close()
+
 
 
     
