@@ -4,5 +4,5 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
-    oppg_c.cpp
+    main.cpp
 LIBS += -llapack -lblas -larmadillo
