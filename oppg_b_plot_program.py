@@ -43,6 +43,6 @@ plt.plot(x, u_exact(x))
 plt.legend(("numeric", "analytic"))
 plt.xlabel("x", **axis_font)
 plt.ylabel("Value of u", **axis_font)
-plt.title("Numeric vs Analytic Solution,  GeneralSolver, n=10", **axis_font)
+plt.title("Numeric vs Analytic Solution,  GeneralSolver, n=1000", **axis_font)
 plt.show()
 
