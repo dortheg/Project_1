@@ -1,7 +1,8 @@
 from scitools.std import *
+import matplotlib.pyplot as plt
 from os import system
 
-N = [10, 100, 1000, 10000]
+N = [10, 100, 1000, 10000, 100000, 10**6, 10**7]
 
 def u_exact(x):
     """
@@ -40,10 +41,15 @@ for n in N:
 
 outfile = open("../eps_file.txt", "w")
 for epsilon in eps_max:
-    outfile.write("%.4e \n" % epsilon)
+    outfile.write("%.5f \n" % epsilon)
 
 outfile.close()
 
+axis_font={"size":"20"}
 
-
+plt.plot(log10(N), eps_max)
+plt.xlabel("Number of grid points n, log_10 scale", **axis_font)
+plt.ylabel("Relative error, log_10 scale", **axis_font)
+plt.title("Relative error, Numeric vs Analytic Solution", **axis_font)
+plt.show()
     

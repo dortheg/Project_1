@@ -30,13 +30,6 @@ def u_exact(x):
 
     return 1 - (1-exp(-10))*x-exp(-10*x)
 
-"""
-plot(x,u, legend="numeric")
-hold("on")
-plot(x, u_exact(x), legend="analytic")
-hold("off")
-"""
-
 axis_font={"size":"20"}
 plt.plot(x, u)
 plt.plot(x, u_exact(x))
