@@ -3,7 +3,7 @@
 from scitools.std import *
 import matplotlib.pyplot as plt
 
-infile = open("u_file.txt", "r")
+infile = open("../u_file.txt", "r")
 
 u = []
 for line in infile:

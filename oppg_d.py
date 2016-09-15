@@ -13,7 +13,7 @@ def u_exact(x):
 eps_max = []
 
 for n in N: 
-    systemStr = "./Project_1_c %d" % (n)
+    systemStr = "../build-Project_1-Desktop_Qt_5_7_0_GCC_64bit-Release/Project_1 %d" % (n)
     system(systemStr)
 
 
@@ -25,7 +25,7 @@ for n in N:
     
     u_exact_array = u_exact(x)
 
-    infile = open("u_file.txt", "r")
+    infile = open("../u_file.txt", "r")
 
     u = []
     for line in infile:
@@ -39,7 +39,7 @@ for n in N:
     eps =  log (abs((u[1:n] - u_exact_array[1:n])/(u_exact_array[1:n])))
     eps_max.append(max(eps))
 
-outfile = open("eps_file.txt", "w")
+outfile = open("../eps_file.txt", "w")
 for epsilon in eps_max:
     outfile.write("%.4e \n" % epsilon)
 
