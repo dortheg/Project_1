@@ -18,7 +18,7 @@ void LU_arma(int n);
 //Hovedprogram
 int main(int argc, char *argv[])
 {
-    int n = 10; //atoi(argv[1]);                                  //Tar inn kommandolinjeargument
+    int n = atoi(argv[1]);                                  //Tar inn kommandolinjeargument
     clock_t start_1, start_2, start_3, end_1, end_2, end_3;
 
     double* u1  = new double[n];
