@@ -18,7 +18,7 @@ void LU_arma(int n);
 //Hovedprogram
 int main(int argc, char *argv[])
 {
-    int n = 1000; //atoi(argv[1]);                                  //Tar inn kommandolinjeargument
+    int n = atoi(argv[1]);                                  //Tar inn kommandolinjeargument
     clock_t start_1, start_2, start_3, end_1, end_2, end_3;
 
     double* u1  = new double[n];
@@ -26,22 +26,27 @@ int main(int argc, char *argv[])
     general_solver(u1, n);
     end_1 = clock();
 
-//    double* u2 = new double[n];
-//    start_2 = clock();
-//    special_solver(u2,n);
-//    end_2 = clock();
+    double* u2 = new double[n];
+    start_2 = clock();
+    special_solver(u2,n);
+    end_2 = clock();
 
 
 //    start_3 = clock();
 //    LU_arma(n);
 //    end_3 = clock();
 
-//    double t_1, t_2, t_3;
-//    t_1 = (end_1 - start_1)/((double)CLOCKS_PER_SEC);
-//    t_2 = (end_2 - start_2)/((double)CLOCKS_PER_SEC);
-//    t_3 = (end_3 - start_3)/((double)CLOCKS_PER_SEC);
+    double t_1, t_2, t_3;
+    t_1 = (end_1 - start_1)/((double)CLOCKS_PER_SEC);
+    t_2 = (end_2 - start_2)/((double)CLOCKS_PER_SEC);
+    //t_3 = (end_3 - start_3)/((double)CLOCKS_PER_SEC);
 
-//    //Skriver kjoretidene til fil
+    cout << t_1 << endl;
+    cout << t_2 << endl;
+    //cout << t_3 << endl;
+
+
+    //Skriver kjoretidene til fil
 //    ofstream myfile;
 //    myfile.open("../time.txt"); // "../time.txt", hvis legge fil i mappe opp
 //    myfile << t_1 << "\n";
