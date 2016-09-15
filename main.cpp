@@ -18,7 +18,7 @@ void LU_arma(int n);
 //Hovedprogram
 int main(int argc, char *argv[])
 {
-    int n = atoi(argv[1]);                                  //Tar inn kommandolinjeargument
+    int n = 10;//atoi(argv[1]);                                  //Tar inn kommandolinjeargument
     clock_t start_1, start_2, start_3, end_1, end_2, end_3;
 
     double* u1  = new double[n];
@@ -126,7 +126,6 @@ void general_solver(double *u, int n)
 
     //Setter initialbetingelse for u, og gjor Backward Substitution
     u[n-1] = f_[n-1]/a_[n-1];
-    //u[n] = f_[n]/a_[n];
 
     for(int i=2; i<=n; i++)
     {
@@ -145,10 +144,10 @@ void general_solver(double *u, int n)
     u_new[0] =0;
     u_new[n+1]= 0;
 
-    //Skriver u-arrayen til fil
+
     ofstream myfile;
     myfile.open("../u_file.txt");
-    //Looper til (n+2)
+
     for(int i=0; i<n+2; i++)
     {
         myfile << u_new[i] << "\n";

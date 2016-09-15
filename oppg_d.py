@@ -35,7 +35,6 @@ for n in N:
     u = array(u)
     
     #kan bare sammenlikne med verdiene u[1:n], siden endepunktene er 0
-    #maatte ta vekk u[1:n+1], why?
     eps =  log (abs((u[1:n] - u_exact_array[1:n])/(u_exact_array[1:n])))
     eps_max.append(max(eps))
 
