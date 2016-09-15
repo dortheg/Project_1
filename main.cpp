@@ -18,7 +18,7 @@ void LU_arma(int n);
 //Hovedprogram
 int main(int argc, char *argv[])
 {
-    int n = atoi(argv[1]);                                  //Tar inn kommandolinjeargument
+    int n = 10; //atoi(argv[1]);                                  //Tar inn kommandolinjeargument
     clock_t start_1, start_2, start_3, end_1, end_2, end_3;
 
     double* u1  = new double[n];
@@ -36,14 +36,10 @@ int main(int argc, char *argv[])
 //    LU_arma(n);
 //    end_3 = clock();
 
-    double t_1, t_2, t_3;
-    t_1 = (end_1 - start_1)/((double)CLOCKS_PER_SEC);
-    t_2 = (end_2 - start_2)/((double)CLOCKS_PER_SEC);
+    //double t_1, t_2, t_3;
+    //t_1 = (end_1 - start_1)/((double)CLOCKS_PER_SEC);
+    //t_2 = (end_2 - start_2)/((double)CLOCKS_PER_SEC);
     //t_3 = (end_3 - start_3)/((double)CLOCKS_PER_SEC);
-
-    cout << t_1 << endl;
-    cout << t_2 << endl;
-    //cout << t_3 << endl;
 
 
     //Skriver kjoretidene til fil
