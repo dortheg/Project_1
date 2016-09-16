@@ -17,7 +17,6 @@ N = len(u)-2
 h = 1.0/(N+1)
 x = zeros(N+2)
 
-#Denne x-en er en annen i programmet, siden denne skal sendes til u_exact
 for i in range(N+2):
     x[i] = h*i
 
