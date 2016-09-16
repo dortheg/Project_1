@@ -18,7 +18,7 @@ void LU_arma(int n);
 //Hovedprogram
 int main(int argc, char *argv[])
 {
-    int n = atoi(argv[1]);                                  //Tar inn kommandolinjeargument
+    int n = atoi(argv[1]);
     clock_t start_1, start_2, start_3, end_1, end_2, end_3;
 
     double* u1  = new double[n];
@@ -26,10 +26,10 @@ int main(int argc, char *argv[])
     general_solver(u1, n);
     end_1 = clock();
 
-    double* u2 = new double[n];
-    start_2 = clock();
-    special_solver(u2,n);
-    end_2 = clock();
+//    double* u2 = new double[n];
+//    start_2 = clock();
+//    special_solver(u2,n);
+//    end_2 = clock();
 
 
 //    start_3 = clock();
@@ -41,8 +41,6 @@ int main(int argc, char *argv[])
     //t_2 = (end_2 - start_2)/((double)CLOCKS_PER_SEC);
     //t_3 = (end_3 - start_3)/((double)CLOCKS_PER_SEC);
 
-
-    //Skriver kjoretidene til fil
 //    ofstream myfile;
 //    myfile.open("../time.txt"); // "../time.txt", hvis legge fil i mappe opp
 //    myfile << t_1 << "\n";
@@ -56,6 +54,7 @@ int main(int argc, char *argv[])
 
 double func_f(double x, double h)
 {
+    //Den dobbeltderiverte til funksjonn u
     double f;
 
     f = pow(h,2)*100* exp(-10*x);
@@ -66,6 +65,7 @@ double func_f(double x, double h)
 
 double func_u(double x)
 {
+    //Den analytiske losningen til systemet
     double u;
 
     u = 1 - (1-exp(-10))*x - exp(-10*x);
@@ -75,13 +75,12 @@ double func_u(double x)
 
 void general_solver(double *u, int n)
 {
-    // Trenger arrayene som definerer matrisen (problemet), og arrayer aa legge losningene i
-    //Gjor array dynamiske, fyll automatisk med n elementer
+
     double* a = new double[n];
     double* b = new double[n-1];
     double* c = new double[n-1];
 
-    //Fyller arrayene med n elementer
+    //Arrayene til den tridiagonale matrisen A
     fill_n(a, n, 2);
     fill_n(b, n-1, -1);
     fill_n(c, n-1, -1);
@@ -89,18 +88,14 @@ void general_solver(double *u, int n)
     double* a_ = new double[n];
     double* f_ = new double[n];
 
-    //Skal evaluere for n skritt i intervallet x (0,1), lager en slik x-array
     double* x = new double [n];
 
-    double h; h = 1.0/(n+1); //Har (n+1) intervaller
+    double h; h = 1.0/(n+1);
 
-    //Loper til n
     for(int i=0; i < n; i++)
     {
         x[i] = (i+1)*h;
     }
-
-    //Lager f-arrayen (funksjonsverdien multiplisert med h²)
 
     double *f = new double[n];
 
@@ -110,7 +105,7 @@ void general_solver(double *u, int n)
     }
 
 
-    // Setter initialbetingelser
+    // Setter initialbetingelser for a_ og f_
     a_[0] = a[0];
     f_[0] = f[0];
 
@@ -133,15 +128,15 @@ void general_solver(double *u, int n)
         u[n-i] = (f_[n-i] - b[n-i]*u[n-i+1])/a_[n-i];
     }
 
-    //Limer paa initialbetingelsene u(0) = u(1) = 0
     double* u_new = new double [n+2];
 
-    //Looper til n+1, fyller opp slik at u_new[1:n+1] = u[0:n], kan jeg i stedet skrive dette?
+    //Fyller opp slik at u_new[1:n+1] = u[0:n]
     for(int i=1; i < n+1; i++)
     {
         u_new[i] = u[i-1];
     }
 
+    //Limer paa initialbetingelsene u(0) = u(1) = 0
     u_new[0] =0;
     u_new[n+1]= 0;
 
@@ -163,18 +158,14 @@ void special_solver(double *u, int n)
     double* a_ = new double[n];
     double* f_ = new double[n];
 
-    //Skal evaluere for n skritt i intervallet x (0,1), lager en slik x-array
     double* x = new double [n];
 
-    double h; h = 1.0/(n+1); //Har (n+1) intervaller
+    double h; h = 1.0/(n+1);
 
-    //Loper til (n-1)
     for(int i=0; i < n; i++)
     {
         x[i] = (i+1)*h;
     }
-
-    //Lager f-arrayen (funksjonsverdien multiplisert med h²)
 
     double *f = new double[n];
 
@@ -184,14 +175,14 @@ void special_solver(double *u, int n)
     }
 
 
-    // Setter initialbetingelser
+    // Setter initialbetingelser for a_ og f_
     a_[0] = a;
     f_[0] = f[0];
 
     // Gjor Forward Stubstitution
     for(int i=1; i<n; i++)
     {
-        a_[i] = (i+2.0)/(i+1.0); //Mismatch med indeksene
+        a_[i] = (i+2.0)/(i+1.0);
 
         f_[i] = f[i] + f_[i-1]/a_[i-1];;
     }
@@ -205,13 +196,15 @@ void special_solver(double *u, int n)
     }
 
     double* u_new = new double [n+2];
-    //u_new[1:n+1] = u[0:n]
     for(int i=1; i < n+1; i++)
     {
         u_new[i] = u[i-1];
     }
 
-    //Skriver u-arrayen til fil
+    //Limer paa initialbetingelsene u(0) = u(1) = 0
+    u_new[0] =0;
+    u_new[n+1]= 0;
+
     ofstream myfile;
     myfile.open("../u_file.txt");
     for(int i=0; i<n+2; i++)
@@ -243,19 +236,15 @@ void LU_arma(int n)
         }
     }
 
-    //Lager arrayen f
 
     double* x = new double [n];
 
-    double h; h = 1.0/(n+1); //Har (n+1) intervaller
+    double h; h = 1.0/(n+1);
 
-    //Loper til (n-1)
     for(int i=0; i < n; i++)
     {
         x[i] = (i+1)*h;
     }
-
-    //Lager f-arrayen (funksjonsverdien multiplisert med h²)
 
     for(int i=0; i < n; i++)
     {
@@ -284,10 +273,10 @@ void LU_arma(int n)
         u_new[i] = u[i-1];
     }
 
+    //Limer paa 0 i endepunktene, slik at u(0) = u(1) = 0
     u_new[0] =0;
     u_new[n+1]= 0;
 
-    //Skriver u-arrayen til fil
     ofstream myfile;
     myfile.open("../u_file.txt");
     for(int i=0; i<n+2; i++)
