@@ -1,4 +1,4 @@
-#Program som plotter 
+#Program som plotter resultatene skrevet til u-fil
 
 from scitools.std import *
 import matplotlib.pyplot as plt

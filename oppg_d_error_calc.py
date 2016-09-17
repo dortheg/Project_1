@@ -1,3 +1,4 @@
+#Program som finner og plotter den relative feilen
 from scitools.std import *
 import matplotlib.pyplot as plt
 from os import system
